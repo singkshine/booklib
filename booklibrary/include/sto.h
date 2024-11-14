@@ -21,12 +21,18 @@ typedef struct bookmsg
     char *name;
     struct bookmsg *NEXT;
 } BOOK;
+
 extern BOOK *head;
 extern BOOK *tail;
-extern BOOK *mid;
+extern BOOK *book;
 #endif
 
 #ifndef FILE_STO_H
 #define FILE_STO_H
 int file_write(void *books);
+#endif
+
+#ifndef STO_MAIN_H
+#define STO_MAIN_H
+void sto();
 #endif

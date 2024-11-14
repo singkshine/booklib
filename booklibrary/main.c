@@ -4,12 +4,13 @@
 #endif
 #include"sto.h"
 int main(){
-    mid=(BOOK*)malloc(sizeof(BOOK));
-    mid->name="system";
-    mid->ID=1;
-    mid->sum=1;
-    printf("%s", mid->name);
+    
+    BOOK*mid=(BOOK*)malloc(sizeof(BOOK));
+     mid->name = "cll";
+     mid->ID=1;
+     mid->sum=1;
     file_write(mid);
     free(mid);
+    sto();
     return 0;
 }
