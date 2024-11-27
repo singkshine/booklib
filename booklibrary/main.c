@@ -2,18 +2,14 @@
 #include"Linkmake.h"
 
 int main(){
-   file_book_read();
-   if(serch_name("Version32")==SYSTEM_RIGHT)
-   {
-        while(stack_top()!=SYSTEM_FALSE){
-            printf("ID%s\n",stack_top()->ID);
-            stack_pop();
-        }
-   }
-
-    file_book_sto();
+file_book_read();
+/*BOOK* news=(BOOK*)malloc(sizeof(BOOK));
+strcpy(news->name,"first");    
+strcpy(news->writer,"first");
+strcpy(news->ID,"f123");
+strcpy(news->IS_BOW,"1");
+strcpy(news->sum,"100000");
+new_in_book(news);*/
+file_book_sto();
     return 0;
-    
-    
-return 0;
 }

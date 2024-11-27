@@ -65,7 +65,9 @@ BOOK_TYPE book_sum_input(char *sum)
         new_book = (BOOK *)malloc(sizeof(BOOK));
     if (new_book == NULL)
         return SYSTEM_FALSE;
+    if(type_input(sum)==NUMBER)
     strcpy(new_book->sum,sum);
+    else strcpy(new_book->sum,"error");
     new_book_sum = BOOK_TYPE_EXIT;
     new_book->NEXT = NULL;
     book_new_input();
@@ -94,7 +96,6 @@ BOOK_TYPE book_IS_BOW_input(char *IS_BOW){
     new_book_IS_BOW=BOOK_TYPE_EXIT;
     new_book->NEXT = NULL;
     book_new_input();
-    if(new_book==NULL)
     return SYSTEM_RIGHT;
 }
 static void reset(){

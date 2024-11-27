@@ -15,5 +15,11 @@ int stack_pop();//抹去栈顶元素，如果栈空，返回FALSE[0]
 //没有将其合二为一是便于后续更改
 int stack_cls();//清除所有栈内元素
 int str_trans_int(char *str_in_);
+int int_trans_str(char *trans, int i) ;
 int type_input(char str[]);
+#endif
+
+#ifndef SERCH_MATCH
+#define SERCH_MATCH 0
+int match_serch(char serch_ch[]);
 #endif

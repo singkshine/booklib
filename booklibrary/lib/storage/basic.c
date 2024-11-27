@@ -12,22 +12,29 @@ static CHAIN_BOOL check(char str1[], char str2[]);
 static CHAIN_BOOL sum_add_book(void *books);
 static CHAIN_BOOL sum_reduce_book(void *books);
 #endif
-
-    /*static CHAIN_BOOL sum_add_book(void *books){//增加对应书的数量
+static CHAIN_BOOL sum_add_book(void *books){//增加对应书的数量
     BOOK*book=(BOOK*)books;
-    book->sum=book->sum+1;
+    if(type_input(book->sum)==STR){
+        int_trans_str(book->sum,0);
+        return SYSTEM_FALSE;
+    }
+    int_trans_str(book->sum,str_trans_int(book->sum)+1);
     return CHAIN_RIGHT;
 }
+
 static CHAIN_BOOL sum_reduce_book(void *books)//减少对应书的数量
 {
     BOOK*book = (BOOK *)books;
-    if(book->sum>0)
-    book->sum = book->sum-1;
-    else
-    return CHAIN_FALSE;
+    if(type_input(book->sum)==STR){
+        int_trans_str(book->sum,0);
+        return SYSTEM_FALSE;
+    }
+    if(str_trans_int(book->sum)==0)
+    return SYSTEM_FALSE;
+    int_trans_str(book->sum,str_trans_int(book->sum)-1);
     return CHAIN_RIGHT;
 }
-*/
+
 CHAIN_BOOL new_in_book(void *books){
     BOOK*book=(BOOK*)books;
     if(book==NULL)
@@ -39,10 +46,20 @@ CHAIN_BOOL new_in_book(void *books){
         book->NEXT=NULL;
         book=NULL;
     }else{
-    book->NEXT=NULL;
-    tail->NEXT=book;
-    tail=tail->NEXT;
-    book=NULL; 
+        if(serch_book(book)==NULL){
+            book->NEXT=NULL;
+            tail->NEXT=book;
+            tail=tail->NEXT;
+            book=NULL; 
+        }else{
+            int i=0;
+            if(type_input(book->sum)==NUMBER)
+            for(i=0;i<str_trans_int(book->sum);i++)
+            sum_add_book(serch_book(book));
+            free (book);
+            book=NULL;
+        }
+     
     }
     return CHAIN_RIGHT;
 }
@@ -140,8 +157,9 @@ BOOK *serch_book(void *books){
     if(book==NULL||blook==NULL)
     return NULL;
     do{
-        if(book->name==blook->name&&book->writer==blook->writer)
-        return book;
+        if(check(book->name,blook->name)==SYSTEM_RIGHT&&check(book->writer,blook->writer)==SYSTEM_RIGHT){
+        return blook;
+        }
         blook=blook->NEXT;
     }while(blook!=NULL);
     return NULL;
