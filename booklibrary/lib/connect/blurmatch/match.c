@@ -1,6 +1,13 @@
 #include "Linkmake.h"
 #include "sto.h"
-int match_serch(char serch_ch[]){
+#ifndef MATCH_STATIC_
+#define MATCH_STATIC_ 0
+static int one_book_check(BOOK *book, char serch_ch[]) ;
+static int check_str_(char serch_ch[], char serched_ch[]) ;
+#endif
+
+int match_search(char serch_ch[])
+{
     if(serch_ch==NULL)
     return SYSTEM_FALSE;
     BOOK*book=head;

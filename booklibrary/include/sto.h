@@ -2,13 +2,11 @@
 //除了 IS_BOW 主要懒写字符转数字部分
 #ifndef SYSTEM_RIGHT
 #define SYSTEM_RIGHT 1
+#define SYSTEM_FALSE 0
 #endif
 //定义外部链接时函数返回的结果，所有内置函数[int]型函数 都是如此
 //成功执行返回1
 //失败返回0
-#ifndef SYSTEM_FALSE
-#define SYSTEM_FALSE 0
-#endif
 
 #ifndef BLOCK
 #define BLOCK 15
@@ -50,8 +48,7 @@ int file_book_read();//读取部分有bug
 #endif
 
 #ifndef STO_MAIN_H
-#define STO_MAIN_H
-    void sto();              // 占个位置没什么用暂时
+#define STO_MAIN_H 0// 占个位置没什么用暂时
 int new_in_book(void *books);//新存入一本书，只能输入书，书就是上方结构体模块
 //书空返回0
 //返回都同上
@@ -71,4 +68,17 @@ int book_sum_input(char *sum);
 int book_writer_input(char *writer);
 int book_IS_BOW_input(char *IS_BOW);
 int book_new_input();
+#endif
+
+
+#ifndef USR_FILE
+#define USR_FILE
+#define LIM_INPUT 15
+typedef struct usr_{
+    char type[10];
+    char usr[LIM_INPUT];
+    char pass[LIM_INPUT];
+    struct usr_ *NEXT;
+}usr;
+
 #endif

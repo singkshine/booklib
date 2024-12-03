@@ -6,7 +6,7 @@ static BOOK *fbook = NULL, *tbook = NULL, *mbook = NULL;
 static void copy_book(BOOK *book, BOOK *books);
 #endif
 
-STACK_ stack_push(BOOK *books){
+STACK_ stack_push(BOOK*books){
     BOOK*book=(BOOK*)malloc(sizeof(BOOK));
     if(book==NULL)
     return SYSTEM_FALSE;
@@ -27,11 +27,9 @@ STACK_ stack_push(BOOK *books){
     book=NULL;
     return SYSTEM_RIGHT;
 }
-
 BOOK* stack_top(){
     return tbook;
 }
-
 STACK_ stack_pop(){
     if(tbook==NULL)
     return SYSTEM_FALSE;
@@ -55,7 +53,6 @@ STACK_ stack_cls(){
     while(stack_pop()!=SYSTEM_FALSE);
     return SYSTEM_RIGHT;
 }
-
 static void copy_book(BOOK*book,BOOK*books){
     strcpy(book->name,books->name);
     strcpy(book->ID,books->ID);
