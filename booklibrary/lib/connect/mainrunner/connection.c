@@ -51,6 +51,18 @@ void zhuce_visitor(){
     char username[51];
     char password[51];
     s_zhuce_visitor();
+    scanf("%50s",username);
+    printf("请输入密码(最多50个字符):")；
+    scanf("%50s",password);
+    //这儿还没写好
+    printf("注册中");
+    status();
+    if(save_user(username,password)){
+        printf("注册成功！\n");
+    }else{
+        printf("注册失败。\n");
+    }
+
 }
 
 // 登录界面
@@ -76,18 +88,31 @@ void login_screen() {
 
 //游客登录
 void enroll_visitor(){
+    char login_username[51];
+    char login_password[51];
     s_enroll_visitor();
-    printf("测试中\n");
-    status();
-    visitor_menu();
+    printf("请输入用户名：");
+    scanf("%50s",login_username);
+    printf("请输入密码：");
+    scanf("%50s",login_password);
+    //这儿没写好
+    if(?){
+        visitor_menu;
+    }
+    
 }
 
 //管理员登录
 void enroll_admin(){
     s_enroll_admin();
-    printf("测试中\n");
-    status();
-    admin_menu();
+    printf("请输入账号：");
+    scanf("%50s",??);
+    printf("请输入密码：");
+    scanf("%50s",??);
+    //这儿没写好
+    if(?){
+        admin_menu;
+    }
 }
 // 游客菜单
 void visitor_menu() {
