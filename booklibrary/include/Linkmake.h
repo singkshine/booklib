@@ -1,6 +1,6 @@
 #ifndef LINKMAKE_H
 #define LINKMAKE_H
-
+#include "sto.h"
 #define LINK_ 0
 #define NUMBER 0
 #define STR 1
@@ -8,7 +8,7 @@
 // Link 组件中临时缓存部分，用于将search[搜索满足要求的书]存储进临时栈列
 #ifndef STACK_BOOK
 #define STACK_BOOK 0
-#include "sto.h"
+
 int stack_push(BOOK *books); // 栈入，存入一本书，如果该书为空即NULL，返回SYSTEM_FALSE [0],反之..._RIGHT
 BOOK *stack_top();           // 提取栈顶元素
 int stack_pop();             // 抹去栈顶元素，如果栈空，返回FALSE[0]

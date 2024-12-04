@@ -1,4 +1,3 @@
-#include "sto.h"
 #include"Linkmake.h"
 #ifndef BOOK_TYPE_
 #define BOOK_TYPE_EXIT 1

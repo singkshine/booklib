@@ -1,5 +1,4 @@
 //connect screen and sto
-#include "sto.h"
 #include "Linkmake.h"
 #ifndef FULL
 #define FULL SYSTEM_RIGHT

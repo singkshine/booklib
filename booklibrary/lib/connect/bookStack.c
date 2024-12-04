@@ -1,4 +1,3 @@
-#include "sto.h"
 #include "Linkmake.h"
 #ifndef STACK_
 #define STACK_ int

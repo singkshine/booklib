@@ -1,9 +1,8 @@
 //规定写入格式 10个位次
 //使用地址传递book信息
-#include"sto.h"
 #include"Linkmake.h"
 #ifndef BOOK_LIB
-#define BOOK_LIB "booklist.txt"
+#define BOOK_LIB ".bookstorage"
 typedef int FILE_BOOL;
 static FILE_BOOL file_write(void *books);
 static FILE_BOOL book_read(int Line_i);

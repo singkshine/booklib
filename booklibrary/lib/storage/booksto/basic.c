@@ -1,4 +1,3 @@
-#include "sto.h"
 #include "Linkmake.h"
 BOOK*head=NULL,*tail=NULL;//book有bug，涉及很多部分，是个没用的组件
 #ifndef CHAIN_RIGHT

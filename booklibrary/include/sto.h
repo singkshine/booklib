@@ -75,10 +75,16 @@ int book_new_input();
 #define USR_FILE
 #define LIM_INPUT 15
 typedef struct usr_{
-    char type[10];
+    char type[LIM_INPUT];
     char usr[LIM_INPUT];
     char pass[LIM_INPUT];
     struct usr_ *NEXT;
 }usr;
-
+int usr_push(usr *stu);
+int usr_pop();
+int usr_del(usr *usr_);
+usr *usr_top();
+int file_usr_read();
+int file_usr_sto();
 #endif
+
