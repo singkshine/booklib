@@ -1,20 +1,10 @@
 #include "screen.h"
 
-#if defined(_WIN32)||defined(_WIN64)
-    #include <windows.h>
-    #define OS_TYPE 1
-    #define CLEAR_SCREEN() system("cls")
-#elif defined(__linux__) || defined(__unix__)
-    #include<unisted.h>
-    #define OS_TYPE 0
-    #define CLEAR_SCREEN() system("clear") 
-#endif
 
 void shadow() {
     if(OS_TYPE){
         SetConsoleOutputCP(65001);
     }
-    welcome_screen();
 }
 
 void display_status(int seconds_left) {
@@ -144,8 +134,6 @@ void s_borrow_book() {
     scanf("%d", &book_id);
     printf("成功借阅图书编号：%d。\n", book_id);
     printf("按任意键返回。\n");
-    getchar();
-    getchar();
 }
 
 // 还书
@@ -158,9 +146,6 @@ void s_return_book() {
     scanf("%d", &book_id);
     printf("成功归还图书编号：%d。\n", book_id);
     printf("按任意键返回。\n");
-    getchar();
-    getchar();
-    CLEAR_SCREEN();
 }
 
 // 管理/修改图书信息
@@ -168,11 +153,11 @@ void s_manage_books() {
     printf("+======================================+\n");
     printf("|         管理图书                     |\n");
     printf("+======================================+\n");
-    printf("功能暂未实现。\n");
-    printf("按任意键返回。\n");
-    getchar();
-    getchar();
-    CLEAR_SCREEN();
+    printf("|         1. 存入书籍                |\n");
+    printf("|         2. 删除书籍               |\n");
+    printf("|         3. 更改图书信息             |\n");
+    printf("|         4. 返回管理员菜单            |\n");
+    printf("+======================================+\n");
     
 }
 
@@ -206,5 +191,23 @@ void s_enroll_admin(){
     printf("|         管理员登录界面               |\n");
     printf("+--------------------------------------+\n");
     printf("|         请输入账号和密码             |\n");
+    printf("+======================================+\n");
+}
+
+void s_admin_stobook(){
+    printf("+======================================+\n");
+    printf("|         存入书籍                  |\n");
+    printf("+======================================+\n");
+}
+
+void s_admin_delbook(){
+    printf("+======================================+\n");
+    printf("|         删除书籍                  |\n");
+    printf("+======================================+\n");
+}
+
+void s_admin_chanbook(){
+    printf("+======================================+\n");
+    printf("|       修改书籍信息                  |\n");
     printf("+======================================+\n");
 }
