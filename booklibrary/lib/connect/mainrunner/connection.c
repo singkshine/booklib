@@ -27,7 +27,7 @@ void welcome_screen() {
     }
 }
 void register_enroll(){
-    s_register_roll():
+    s_register_roll();
      int choice;
     scanf("%d", &choice);
     switch (choice) {
@@ -160,7 +160,7 @@ void admin_menu() {
     }
 }
 
-// 查看所有图书（模拟数据）
+// 查看所有图书
 void display_books_visitor() {
     s_display_books_visitor();
     int choice;
@@ -229,14 +229,10 @@ void return_book() {
     visitor_menu();
 }
 
-// 管理/修改图书信息
+// 管理图书
 void manage_books() {
     s_manage_books();
-    printf("功能暂未实现。\n");
-    printf("按任意键返回。\n");
-    getchar();
-    getchar();
-    CLEAR_SCREEN();
+   
     admin_menu();
 }
 
@@ -249,4 +245,20 @@ void view_users() {
     getchar();
     CLEAR_SCREEN();
     admin_menu();
+}
+
+//管理员存入书籍
+void admin_stobook(){
+    s_admin_stobook();
+    printf("请输入要存入的书籍书名和作业，并设定数量");
+}
+
+//管理员删除书籍
+void admin_delbook(){
+    s_admin_delbook();
+}
+
+//管理员更改图书信息
+void admin_chanbook(){
+
 }
