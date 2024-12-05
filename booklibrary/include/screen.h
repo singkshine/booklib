@@ -1,10 +1,19 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+#if defined(_WIN32)||defined(_WIN64)
+    #include <windows.h>
+    #define OS_TYPE 1
+    #define CLEAR_SCREEN() system("cls")
+#elif defined(__linux__) || defined(__unix__)
+    #include<unisted.h>
+    #define OS_TYPE 0
+    #define CLEAR_SCREEN() system("clear") 
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 void s_welcome_screen();
 void s_login_screen();
@@ -22,6 +31,9 @@ void s_enroll_admin();
 void s_zhuce_visitor();
 void s_status();
 void s_show();
+void s_admin_stobook();
+void s_admin_delbook();
+void s_admin_chanbook();
 void shadow();
 
 #endif

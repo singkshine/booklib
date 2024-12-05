@@ -27,4 +27,7 @@ void enroll_admin();
 void zhuce_visitor();
 void status();
 void show();
-void display_status():
+void admin_stobook();
+void admin_delbook();
+void admin_chanbook();
+void display_status();
