@@ -39,6 +39,7 @@ extern BOOK *tail;
 
 #ifndef FILE_STO_H
 #define FILE_STO_H
+void FULL_FREE_STO();
 int file_book_sto();
 int file_book_read();//读取部分有bug
 //将链表中的书全部存入txt文件
@@ -49,6 +50,7 @@ int file_book_read();//读取部分有bug
 
 #ifndef STO_MAIN_H
 #define STO_MAIN_H 0// 占个位置没什么用暂时
+
 int new_in_book(void *books);//新存入一本书，只能输入书，书就是上方结构体模块
 //书空返回0
 //返回都同上
@@ -86,5 +88,14 @@ int usr_del(usr *usr_);
 usr *usr_top();
 int file_usr_read();
 int file_usr_sto();
+usr* search_usr(char *usr_);
 #endif
 
+#ifndef BRR_FILE
+#define BRR_FILE
+typedef struct usr_borrow{
+    char name[20];
+    char book_id[30];
+    usr*NEXT;
+}brr;
+#endif
