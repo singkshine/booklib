@@ -10,6 +10,7 @@ static void resets();
 static CHAIN_BOOL check(char str1[], char str2[]);
 static CHAIN_BOOL sum_add_book(void *books);
 static CHAIN_BOOL sum_reduce_book(void *books);
+static int book_pop();
 #endif
 static CHAIN_BOOL sum_add_book(void *books){//增加对应书的数量
     BOOK*book=(BOOK*)books;
@@ -179,3 +180,37 @@ static CHAIN_BOOL check(char str1[], char str2[])
     return MATCH;
 }
 
+
+static int book_pop(){
+    if(head==NULL)
+    return SYSTEM_FALSE;
+    if(head==tail){
+        free(head);
+        head=NULL;
+        tail=NULL;
+        return SYSTEM_RIGHT;
+    }
+    BOOK*temper=head;
+    while(temper->NEXT!=tail){
+        temper=temper->NEXT;
+    }
+    free(tail);
+    tail=temper;
+    temper->NEXT=NULL;
+    return SYSTEM_RIGHT;
+}
+
+void FULL_FREE_STO(){
+    while(book_pop()!=SYSTEM_FALSE);
+}
+
+int full_show(){
+    BOOK*temp=head;
+    if(head==NULL)
+    return SYSTEM_FALSE;
+    while(temp!=NULL){
+    stack_push(temp);
+    temp=temp->NEXT;
+    }
+    return SYSTEM_RIGHT;
+}
