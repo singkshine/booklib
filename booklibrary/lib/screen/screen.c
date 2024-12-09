@@ -86,29 +86,27 @@ void s_display_books_visitor() {
     printf("+======================================+\n");
     printf("|         图书列表                     |\n");
     printf("+--------------------------------------+\n");
-    printf("1. 《C语言程序设计》 - 谭浩强\n");
-    printf("2. 《数据结构与算法》 - 严蔚敏\n");
-    printf("3. 《计算机组成原理》 - 唐朔飞\n");
+}
+void s_display_books_visitor_2() {
     printf("+======================================+\n");
     printf("|         1. 借书                      |\n");
     printf("|         2. 还书                      |\n");
     printf("|         3. 返回游客菜单              |\n");
     printf("+======================================+\n");
+    printf("请输入选项：");
     
 }
 void s_display_books_admin() {
     printf("+======================================+\n");
     printf("|         图书列表                     |\n");
     printf("+--------------------------------------+\n");
-    printf("1. 《C语言程序设计》 - 谭浩强\n");
-    printf("2. 《数据结构与算法》 - 严蔚敏\n");
-    printf("3. 《计算机组成原理》 - 唐朔飞\n");
+}
+void s_display_books_admin_2() {
     printf("+======================================+\n");
     printf("|         1. 管理图书信息              |\n");
     printf("|         2. 返回管理员菜单            |\n");
     printf("+======================================+\n");
     printf("请输入选项：");
-   
 }
 
 // 借书
@@ -162,7 +160,6 @@ void s_view_users() {
 }
 void s_zhuce_visitor(){
      printf("---------------用户注册中--------------------");
-     printf("请输入账号(最多50个字符):");
 }
 
 void s_enroll_visitor(){
@@ -198,3 +195,67 @@ void s_admin_chanbook(){
     printf("|       修改书籍信息                  |\n");
     printf("+======================================+\n");
 }
+
+// 判断字符是否为中文（UTF-8 编码）
+int is_chinese(const unsigned char *c) {
+    return (*c >= 0x80 && *c <= 0xEF); // 中文字符在UTF-8下以0x80-0xEF开头
+}
+
+// 获取字符串的显示宽度（中文占2，英文占1）
+int get_display_width(const char *str) {
+    int width = 0;
+    for (int i = 0; str[i] != '\0';) {
+        if (is_chinese((unsigned char *)&str[i])) {
+            width += 2; // 中文字符占2个宽度
+            i += 3;     // UTF-8 中文字符占3个字节
+        } else {
+            width += 1; // 英文字符占1个宽度
+            i += 1;
+        }
+    }
+    return width;
+}
+
+// 对齐打印字符
+void print_aligned(const char *str, int total_width) {
+    int str_width = get_display_width(str); // 计算字符串的显示宽度
+    int padding = total_width - str_width;  // 计算需要填充的空格数
+
+    if (padding < 0) {
+        // 字符串超出总宽度时，截断
+        for (int i = 0, width = 0; str[i] != '\0';) {
+            if (is_chinese((unsigned char *)&str[i])) {
+                if (width + 2 > total_width) break;
+                printf("%.*s", 3, &str[i]);
+                width += 2;
+                i += 3;
+            } else {
+                if (width + 1 > total_width) break;
+                printf("%c", str[i]);
+                width += 1;
+                i += 1;
+            }
+        }
+    } else {
+        // 正常对齐，先打印字符串，再打印空格
+        printf("%s", str);
+        for (int i = 0; i < padding; i++) {
+            printf(" ");
+        }
+    }
+    printf("\n"); // 换行
+}
+// int main() {
+//     char str1[] = "Hello世界";
+//     char str2[] = "测试中文";
+//     char str3[] = "AlignTest";
+
+//     int width = 16; // 对齐的总宽度
+
+//     printf("对齐显示:\n");
+//     print_aligned(str1, width);
+//     print_aligned(str2, width);
+//     print_aligned(str3, width);
+
+//     return 0;
+// }
