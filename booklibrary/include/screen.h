@@ -6,7 +6,7 @@
     #define OS_TYPE 1
     #define CLEAR_SCREEN() system("cls")
 #elif defined(__linux__) || defined(__unix__)
-    #include<unisted.h>
+    #include<unistd.h>
     #define OS_TYPE 0
     #define CLEAR_SCREEN() system("clear") 
 #endif
@@ -20,7 +20,9 @@ void s_login_screen();
 void s_visitor_menu();
 void s_admin_menu();
 void s_display_books_visitor();
+void s_display_books_visitor();
 void s_display_books_admin();
+void s_display_books_admin_2();
 void s_borrow_book();
 void s_return_book();
 void s_manage_books();
@@ -35,5 +37,6 @@ void s_admin_stobook();
 void s_admin_delbook();
 void s_admin_chanbook();
 void shadow();
+void printf_aligned();
 
 #endif
