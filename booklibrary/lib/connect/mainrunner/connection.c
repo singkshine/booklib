@@ -1,104 +1,148 @@
 #include "connection.h"
-
+typedef struct usr_ {
+    char usr[LIM_INPUT];
+    char pass[LIM_INPUT];
+    struct usr_ *NEXT;
+} usr;
+usr*usr_head=NULL;
 
 // 欢迎界面
 void welcome_screen() {
     s_welcome_screen();
-    int choice;
-    scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-        CLEAR_SCREEN();
-            register_enroll();
-            break;
-        case 2:
-        CLEAR_SCREEN();
-            login_screen();
-            break;
-        case 3:
-        CLEAR_SCREEN();
-            printf("感谢使用，再见！\n");
-            exit(0);
-            
-        default:
-        CLEAR_SCREEN();
+    char input[10];
+    while (1) {
+        gets(input); 
+        if (symbol_mode3(input, '1', '3') == SYSTEM_RIGHT) {
+            int choice = str_to_int(input); 
+
+            switch (choice) {
+                case 1:
+                    CLEAR_SCREEN();
+                    register_enroll();
+                    break;
+                case 2:
+                    CLEAR_SCREEN();
+                    login_screen();
+                    break;
+                case 3:
+                    CLEAR_SCREEN();
+                    printf("感谢使用，再见！\n");
+                    exit(0);
+            }
+        } else {
             printf("无效输入，请重新选择。\n");
-            welcome_screen();
+        }
     }
 }
 void register_enroll(){
-    s_register_roll();
-     int choice;
-    scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-        CLEAR_SCREEN();
-            zhuce_visitor();
-            break;
-        case 2:
-        CLEAR_SCREEN();
-            welcome_screen();
-            break;
-        default:
-        CLEAR_SCREEN();
+    s_register_enroll();
+    char input[10];
+    while (1) {
+        gets(input); 
+        if (symbol_mode3(input, '1', '2') == SYSTEM_RIGHT) {
+            int choice = str_to_int(input); 
+            switch (choice) {
+                case 1:
+                    CLEAR_SCREEN();
+                    zhuce_visitor();
+                    break;
+                case 2:
+                    CLEAR_SCREEN();
+                    welcome_screen();
+                    break;
+            }
+        } else {
             printf("无效输入，请重新选择。\n");
-            welcome_screen();
+            
+        }
     }
 }
 
 //用户注册界面
-void zhuce_visitor(){
-    char username[51];
-    char password[51];
-    s_zhuce_visitor();
-    scanf("%50s",username);
-    printf("请输入密码(最多50个字符):");
-    scanf("%50s",password);
-    //这儿还没写好
-    printf("注册中");
-    status();
-    if(save_user(username,password)){
-        printf("注册成功！\n");
-    }else{
-        printf("注册失败。\n");
+void zhuce_visitor() {
+    s_zhuce_visitor();  
+    char username[20];
+    char password[20];
+    printf("请输入账号: ");
+    while (1) {
+        gets(username); 
+        if (symbol_mode2(username) == SYSTEM_RIGHT) { 
+            username[strcspn(username, "\n")] = 0; 
+
+            
+            usr *current = usr_head;
+            while (current != NULL) {
+                if (strcmp(current->usr, username) == 0) {
+                    printf("账号已经被使用，请重新输入！\n");
+                    return;  
+                }
+                current = current->NEXT;
+            }
+
+            printf("请输入密码: ");
+            while (1) {
+                gets(password);
+                if (symbol_mode2(password) == SYSTEM_RIGHT) { 
+                    password[strcspn(password, "\n")] = 0;  
+
+                   
+                    usr *new_user = (usr *)malloc(sizeof(usr));  
+                    if (new_user == NULL) {
+                        printf("内存分配失败!\n");
+                        return; 
+                    }
+
+                    strcpy(new_user->usr, username);
+                    strcpy(new_user->pass, password);
+                    new_user->NEXT = usr_head; 
+                    usr_head = new_user;
+                   
+                    if (file_usr_sto() == SYSTEM_FALSE) {
+                        printf("保存用户信息失败！\n");
+                        return;  
+                    }
+
+                    printf("注册成功！\n");
+                    return;  
+                } else {
+                    printf("密码输入无效，请重新输入：\n");
+                }
+            }
+        } else {
+            printf("账号输入无效，请重新输入！\n");
+        }
     }
-
 }
-
 // 登录界面
 void login_screen() {
     s_login_screen();
-    int choice;
-    scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-        CLEAR_SCREEN();
-            enroll_visitor();
-            break;
-        case 2:
-        CLEAR_SCREEN();
-            enroll_admin();
-            break;
-        default:
-        CLEAR_SCREEN();
+    char input[10];
+    while (1) {
+        gets(input); 
+        if (symbol_mode3(input, '1', '2') == SYSTEM_RIGHT) {
+            int choice = str_to_int(input); 
+            switch (choice) {
+                case 1:
+                    CLEAR_SCREEN();
+                    enroll_visitor();
+                    break;
+                case 2:
+                    CLEAR_SCREEN();
+                    enroll_admin();
+                    break;        
+            }
+        } else {
             printf("无效输入，请重新选择。\n");
-            login_screen();
+        }
     }
 }
 
 //游客登录
-void enroll_visitor(){
-    char login_username[51];
-    char login_password[51];
+void enroll_visitor(){ 
     s_enroll_visitor();
-    printf("请输入用户名：");
-    scanf("%50s",login_username);
-    printf("请输入密码：");
-    scanf("%50s",login_password);
-    //这儿没写好
-    if(?){
-        visitor_menu;
-    }
+    //完善中
+    printf("完善中\n");
+    visitor_menu;
     
 }
 
@@ -106,101 +150,115 @@ void enroll_visitor(){
 void enroll_admin(){
     s_enroll_admin();
     printf("请输入账号：");
-    scanf("%50s",??);
     printf("\n");
     printf("请输入密码：");
-    scanf("%50s",??);
-    //这儿没写好
-    if(?){
-        admin_menu;
-    }
+    
 }
 // 游客菜单
 void visitor_menu() {
     s_visitor_menu();
-    int choice;
-    scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-             CLEAR_SCREEN();
-            display_books_visitor();
-            break;
-        case 2:
-            CLEAR_SCREEN();
-            welcome_screen();
-            break;
-        default:
-            CLEAR_SCREEN();
+    char input[10];
+    while (1) {
+        gets(input); 
+        if (symbol_mode3(input, '1', '2') == SYSTEM_RIGHT) {
+            int choice = str_to_int(input); 
+            switch (choice) {
+                case 1:
+                    CLEAR_SCREEN();
+                    display_books_visitor();
+                    break;
+                case 2:
+                    CLEAR_SCREEN();
+                    welcome_screen();
+                    break;
+            }
+        } else {
             printf("无效输入，请重新选择。\n");
-            visitor_menu();
+        }
     }
 }
 
 // 管理员菜单
 void admin_menu() {
     s_admin_menu();
-    int choice;
-    scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-            CLEAR_SCREEN();
-            display_books_admin();
-            break;
-        case 2:
-            CLEAR_SCREEN();
-            view_users();
-            break;
-        case 3:
-            CLEAR_SCREEN();
-            welcome_screen();
-            break;
-        default:
-            CLEAR_SCREEN();
+    char input[10];
+    while (1) {
+        gets(input); 
+        if (symbol_mode3(input, '1', '3') == SYSTEM_RIGHT) {
+            int choice = str_to_int(input); 
+            switch (choice) {
+                case 1:
+                    CLEAR_SCREEN();
+                    display_books_admin();
+                    break;
+                case 2:
+                    CLEAR_SCREEN();
+                    view_users();
+                    break;
+                case 3:
+                    CLEAR_SCREEN();
+                    welcome_screen();
+                    break;
+            }
+        } else {
             printf("无效输入，请重新选择。\n");
-            admin_menu();
+        }
     }
 }
 
 // 查看所有图书
 void display_books_visitor() {
     s_display_books_visitor();
-    int choice;
-    scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-            CLEAR_SCREEN();
-            borrow_book();
-            break;
-        case 2:
-            CLEAR_SCREEN();
-            return_book();
-            break;
-        case 3:
-            CLEAR_SCREEN();
-            visitor_menu();
-            break;
-        default:
-            CLEAR_SCREEN();
+//这里要加输出
+    s_display_books_visitor_2();
+    char input[10];
+    while (1) {
+        gets(input); 
+        if (symbol_mode3(input, '1', '3') == SYSTEM_RIGHT) {
+            int choice = str_to_int(input); 
+            switch (choice) {
+                case 1:
+                    CLEAR_SCREEN();
+                    borrow_book();
+                    break;
+                case 2:
+                    CLEAR_SCREEN();
+                    return_book();
+                    break;
+                case 3:
+                    CLEAR_SCREEN();
+                    visitor_menu();
+                    break;
+            }
+        } else {
             printf("无效输入，请重新选择。\n");
+
+        }
     }
     
 }
 void display_books_admin() {
     s_display_books_admin();
-    int choice;
-    scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-            CLEAR_SCREEN();
-            manage_books();
-            break;
-        case 2:
-            CLEAR_SCREEN();
-            admin_menu();
-            break;
-        default:
-            CLEAR_SCREEN();
+//这里要加输出
+    s_display_books_admin_2();
+    char input[10];
+    while (1) {
+        gets(input); 
+        if (symbol_mode3(input, '1', '3') == SYSTEM_RIGHT) {
+            int choice = str_to_int(input); 
+            switch (choice) {
+                case 1:
+                    CLEAR_SCREEN();
+                    manage_books();
+                    break;
+                case 2:
+                    CLEAR_SCREEN();
+                    admin_menu();
+                    break;
+            }
+        } else {
             printf("无效输入，请重新选择。\n");
+        }
     }
    
 }
@@ -208,52 +266,49 @@ void display_books_admin() {
 // 借书
 void borrow_book() {
     s_borrow_book();
-    int book_id;
-    scanf("%d", &book_id);
-    printf("成功借阅图书编号：%d。\n", book_id);
-    printf("按任意键返回。\n");
-    getchar();
-    getchar();
+    //完善中
+    printf("完善中");
     visitor_menu();
 }
 
 // 还书
 void return_book() {
     s_return_book();
-    int book_id;
-    scanf("%d", &book_id);
-    printf("成功归还图书编号：%d。\n", book_id);
-    printf("按任意键返回。\n");
-    getchar();
-    getchar();
-    CLEAR_SCREEN();
+    //完善中
+    printf("完善中");
     visitor_menu();
 }
 
 // 管理图书
 void manage_books() {
     s_manage_books();
-   int choice;
-   scanf("%d",&choice);
-   switch(choice){
-        case 1:
-        CLEAR_SCREEN();
-        admin_stobook();
-        break;
-        case 2:
-        CLEAR_SCREEN();
-        admin_delbook();
-        break;
-        case 3:
-        CLEAR_SCREEN();
-        admin_chanbook();
-        break;
-        case 4:
-        CLEAR_SCREEN();
-        admin_menu();
-        default:
-   }
-    admin_menu();
+    char input[10];
+    while (1) {
+        gets(input); 
+        if (symbol_mode3(input, '1', '4') == SYSTEM_RIGHT) {
+            int choice = str_to_int(input); 
+            switch (choice) {
+                case 1:
+                    CLEAR_SCREEN();
+                    admin_stobook();
+                    break;
+                case 2:
+                    CLEAR_SCREEN();
+                    admin_delbook();
+                    break;
+                case 3:
+                    CLEAR_SCREEN();
+                    admin_chanbook();
+                    break;
+                case 4:
+                    CLEAR_SCREEN();
+                    admin_menu();
+                    break;
+            }
+        } else {
+            printf("无效输入，请重新选择。\n");
+        }
+    }
 }
 
 // 查看用户信息
