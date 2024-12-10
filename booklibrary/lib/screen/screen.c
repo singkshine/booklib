@@ -1,12 +1,6 @@
 #include "screen.h"
 
 
-void shadow() {
-    if(OS_TYPE){
-        SetConsoleOutputCP(65001);
-    }
-}
-
 void display_status(int seconds_left) {
     for (int i = 0; i < (5 - seconds_left); i++) {
         printf(".");
